@@ -7,8 +7,8 @@ DATABASE = 'Basic_DB.db'
 app = Flask(__name__)
 
 # Define the route for the products page
-@app.route("/")
-def index():
+@app.route("/products")
+def item():
     # Open a connection to the database
     with sqlite3.connect(DATABASE) as conn:
         # Create a cursor object to interact with the database
