@@ -9,7 +9,7 @@ def create_products_table():
         cursor = conn.cursor()
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS Products (
-                product_id INTEGER PRIMARY KEY,
+                product_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 product_name TEXT,
                 description TEXT,
                 price REAL,
@@ -23,7 +23,7 @@ def create_customers_table():
         cursor = conn.cursor()
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS Customers (
-                customer_id INTEGER PRIMARY KEY,
+                customer_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT,
                 email TEXT,
                 shipping_address TEXT,
@@ -37,7 +37,7 @@ def create_reviews_table():
         cursor = conn.cursor()
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS Reviews (
-                review_id INTEGER PRIMARY KEY,
+                review_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 customer_id INTEGER,
                 product_id INTEGER,
                 rating INTEGER,
@@ -46,7 +46,22 @@ def create_reviews_table():
                 FOREIGN KEY (product_id) REFERENCES Products (product_id)
             );
         """)
-        
+
+def fill_products_table():
+    with sqlite3.connect(DATABASE) as conn:
+        cursor = conn.cursor()
+        products = [
+            ("Laptop", "This is the description for generic laptop.", 799.99),
+            ("GPU", "This is the description for generic GPU.", 299.99),
+            ("RAM", "This is the description for generic RAM.", 39.99),
+        ]
+        cursor.executemany("""
+            INSERT INTO Products (product_name, description, price)
+            VALUES (?, ?, ?);
+            """, products)
+        conn.commit()
+
 create_customers_table()
 create_products_table()
 create_reviews_table()
+fill_products_table()
