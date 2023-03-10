@@ -11,7 +11,7 @@ app.secret_key = "secret_key"
 users = {"user1": "password1", "user2": "password2"}
 
 @app.route("/")
-def Creation():
+def loadHomepage():
     return render_template("index.html")
 
 # Define the route for the products page
