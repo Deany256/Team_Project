@@ -1,0 +1,22 @@
+<!-- item.html -->
+<!--<form method="POST" action="/item">
+    <h1>{{ prod_name }}</h1>
+    <p>{{ desc }}</p>
+    <p>{{ price }}</p>
+    <button type="submit">Add to basket</button>
+    <input type="hidden" name="id" value="{{ request.args.get('id') }}">
+  </form>
+  
+   basket.html 
+  <ul>
+  {% for item in basket_items %}
+    <li>
+      {{ item[1] }} - {{ item[3] }} - {{ item[2] }}
+      <form method="POST" action="/basket">
+        <input type="hidden" name="item_index" value="{{ loop.index0 }}">
+        <button type="submit">Remove</button>
+      </form>
+    </li>
+  {% endfor %}
+  </ul>  
+  
