@@ -1,7 +1,7 @@
 import sqlite3
 
 # Define the database file name
-DATABASE = "Basic_DB.db"
+DATABASE = "ecommerce.db"
 
 # Define the function to create the Products table
 def create_products_table():
@@ -28,6 +28,63 @@ def create_customers_table():
                 email TEXT,
                 shipping_address TEXT,
                 payment_info TEXT
+            );
+        """)
+        
+# Define the function to create the Orders table
+def create_orders_table():
+    with sqlite3.connect(DATABASE) as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS Orders (
+                order_id INTEGER PRIMARY KEY,
+                customer_id INTEGER,
+                product_id INTEGER,
+                quantity INTEGER,
+                price REAL,
+                FOREIGN KEY (customer_id) REFERENCES Customers (customer_id),
+                FOREIGN KEY (product_id) REFERENCES Products (product_id)
+            );
+        """)
+
+# Define the function to create the Cart table
+def create_cart_table():
+    with sqlite3.connect(DATABASE) as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS Cart (
+                cart_id INTEGER PRIMARY KEY,
+                customer_id INTEGER,
+                product_id INTEGER,
+                quantity INTEGER,
+                price REAL,
+                FOREIGN KEY (customer_id) REFERENCES Customers (customer_id),
+                FOREIGN KEY (product_id) REFERENCES Products (product_id)
+            );
+        """)
+
+# Define the function to create the Shipping table
+def create_shipping_table():
+    with sqlite3.connect(DATABASE) as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS Shipping (
+                shipping_id INTEGER PRIMARY KEY,
+                carrier TEXT,
+                cost REAL,
+                delivery_time TEXT
+            );
+        """)
+
+# Define the function to create the Payment table
+def create_payment_table():
+    with sqlite3.connect(DATABASE) as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS Payment (
+                payment_id INTEGER PRIMARY KEY,
+                method TEXT,
+                details TEXT
             );
         """)
         
@@ -61,7 +118,11 @@ def fill_products_table():
             """, products)
         conn.commit()
 
-create_customers_table()
 create_products_table()
+create_customers_table()
+create_orders_table()
+create_cart_table()
+create_shipping_table()
+create_payment_table()
 create_reviews_table()
-fill_products_table()
+# fill_products_table()
