@@ -3,6 +3,11 @@ import sqlite3
 # Define the database file name
 DATABASE = "ecommerce.db"
 
+# Closes the Database
+def close_DB():
+    with sqlite3.connect(DATABASE) as conn:
+        conn.close()
+
 # Define the function to create the Products table
 def create_products_table():
     with sqlite3.connect(DATABASE) as conn:
@@ -11,7 +16,8 @@ def create_products_table():
             CREATE TABLE IF NOT EXISTS Products (
                 product_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 product_name TEXT,
-                description TEXT,
+                short_description TEXT,
+                long_description TEXT,
                 price REAL,
                 image_url TEXT
             );
@@ -125,4 +131,5 @@ create_cart_table()
 create_shipping_table()
 create_payment_table()
 create_reviews_table()
+# close_DB()
 # fill_products_table()
