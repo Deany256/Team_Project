@@ -4,7 +4,7 @@ import sqlite3
 # Define the database file name
 DATABASE = 'Basic_DB.db'
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 app.secret_key = "secret_key"
 
 # DUMMY DB
