@@ -68,7 +68,7 @@ def login():
         if "username" in session:
             return redirect("/test")
         else:
-            return render_template("login2.html")
+            return render_template("login.html")
 
 # Home route
 @app.route("/test")
