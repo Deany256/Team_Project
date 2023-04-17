@@ -18,6 +18,9 @@ def create_products_table():
                 product_name TEXT,
                 short_description TEXT,
                 long_description TEXT,
+                brand TEXT,
+                category TEXT,
+                quantity INTEGER,
                 price REAL,
                 image_url TEXT
             );
@@ -114,12 +117,12 @@ def fill_products_table():
     with sqlite3.connect(DATABASE) as conn:
         cursor = conn.cursor()
         products = [
-            ("Laptop", "This is the description for generic laptop.", 799.99),
-            ("GPU", "This is the description for generic GPU.", 299.99),
-            ("RAM", "This is the description for generic RAM.", 39.99),
+            ("Laptop", "This is the description for generic laptop.", "", 799.99),
+            ("GPU", "This is the description for generic GPU.", "", 299.99),
+            ("RAM", "This is the description for generic RAM.", "", 39.99),
         ]
         cursor.executemany("""
-            INSERT INTO Products (product_name, description, price)
+            INSERT INTO Products (product_name, short_description, long_description, price)
             VALUES (?, ?, ?);
             """, products)
         conn.commit()
