@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<head>
+
+    <link rel="stylesheet" href="ban.css">
+    <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  </head>
+  
+  <body>
+    <header>
+      <img src="./image/logo.jpg.jpg" class="logo" height="100%">
+      <!--<div class="logo"><a href="#">ShoPperZ</a></div>-->
+      <div class="menu">
+        <a href="#">
+          <ion-icon name="close" class="close"></ion-icon>
+        </a>
+  
+        <ul>
+          <li><a href="#" class="under">HOME</a></li>
+          <li><a href="#" class="under">SHOP</a></li>
+          <li><a href="#" class="under">OUR PRODUCTS</a></li>
+          <li><a href="#" class="under">CONTACT US</a></li>
+          <li><a href="#" class="under">ABOUT US</a></li>
+        </ul>
+      </div>
+      <div class="search">
+  
+        <a href=""><input type="text" placeholder="Search" id="input">
+          <ion-icon class="s" name="search"></ion-icon>
+        </a>
+      </div>
+      <div class="heading">
+        <ul>
+          <li><a href="file:///C:/Users/PC/OneDrive/Desktop/webpages/index.html" class="under">HOME</a></li>
+          <li><a href="file:///C:/Users/PC/OneDrive/Desktop/webpages/login.html" class="under">LOGIN</a></li>
+          <li><a href="file:///C:/Users/PC/OneDrive/Desktop/webpages/banner.html" class="under">OUR PRODUCTS</a></li>
+          <li><a href="file:///C:/Users/PC/OneDrive/Desktop/webpages/contact.html" class="under">CONTACT US</a></li>
+          <li><a href="file:///C:/Users/PC/OneDrive/Desktop/webpages/about.html" class="under">ABOUT US</a></li>
+          <div class="box1">
+            <div class="cart-count1">0</div>
+            <ion-icon name="cart"  id="cart-icon1" ></ion-icon>
+          </div>
+    
+          <div class="cart">
+            <div class="cart-title">Cart Items</div>
+            <div class="cart-content">
+    
+              <div class="cart-box">
+                <img src="./image/tv.jpg" class="cart-img">
+                <div class="detail-box">
+                  <div class="cart-product-title">Television</div>
+                  <div class="price-box">
+                    <div class="cart-price">£72</div>
+                     <div class="cart-amt">£72</div>
+                 </div>
+                  <input type="number" value="1" class="cart-quantity">
+                </div>
+                <ion-icon name="trash" class="cart-remove"></ion-icon>
+              </div>
+    
+              <div class="cart-box">
+                <img src="./image/webcam.jpg" class="cart-img">
+                <div class="detail-box">
+                  <div class="cart-product-title">webcam</div>
+                  <div class="price-box">
+                    <div class="cart-price">£72</div>
+                     <div class="cart-amt">£72</div>
+                 </div>
+                  <input type="number" value="1" class="cart-quantity">
+                </div>
+                <ion-icon name="trash" class="cart-remove"></ion-icon>
+              </div>
+            
+            </div>
+            
+          <div class="total">
+            <div class="total-title">Total</div>
+            <div class="total-price">£0</div>
+          </div>
+    
+          <button type="button" class="btn-buy" onclick="myFunction()">Place Order</button>
+          <!--<button type="button" class="btn-buy">Place Order</button>-->
+    
+          <ion-icon name="close" id="cart-close"></ion-icon>
+    
+    
+          </div>
+        </div>
+    
+        </ul>
+      </div>
+    </header>
+    <div class="container1">
+      <h2 class="title">Discover the Best Prices</h2>
+      <div class="shop-content">
+  
+  
+        <div class="product-box">
+          <div class="pic">
+            <img src="./image/battery.jpg" class="product-img">
+          </div>
+          <h2 class="product-title">Battery</h2>
+          <span class="product-price">£40</span>
+          <ion-icon name="cart" class="add-cart"></ion-icon>
+        </div>
+  
+  
+        <div class="product-box">
+          <div class="pic"><img src="./image/cd.jpg" class="product-img"></div>
+          <h2 class="product-title">CD</h2>
+          <span class="product-price">£65</span>
+          <ion-icon name="cart" class="add-cart"></ion-icon>
+        </div>
+    
+        <div class="product-box">
+          <div class="pic"><img src="./image/charger.jpg" class="product-img"></div>
+          <h2 class="product-title">charger</h2>
+          <span class="product-price">£50</span>
+          <ion-icon name="cart" class="add-cart"></ion-icon>
+        </div>
+    
+        <div class="product-box">
+          <div class="pic"><img src="./image/cpu.jpg" class="product-img"></div>
+          <h2 class="product-title">CPU</h2>
+          <span class="product-price">£500</span>
+          <ion-icon name="cart" class="add-cart"></ion-icon>
+        </div>
+    
+        <div class="product-box">
+          <div class="pic"><img src="./image/flash.jpg" class="product-img"></div>
+          <h2 class="product-title">Flash</h2>
+          <span class="product-price">£25</span>
+          <ion-icon name="cart" class="add-cart"></ion-icon>
+        </div>
+    
+        <div class="product-box">
+          <div class="pic"><img src="./image/laptop1.jpg" class="product-img"></div>
+          <h2 class="product-title">Laptop</h2>
+          <span class="product-price">£1000</span>
+          <ion-icon name="cart" class="add-cart"></ion-icon>
+        </div>
+    
+    
+        <div class="product-box">
+          <div class="pic"><img src="./image/harddisk.jpg.jpg" class="product-img"></div>
+          <h2 class="product-title">harddisk</h2>
+          <span class="product-price">£10</span>
+          <ion-icon name="cart" class="add-cart"></ion-icon>
+        </div>
+    
+    
+        <div class="product-box">
+          <div class="pic"><img src="./image/keyboard.jpg" class="product-img"></div>
+          <h2 class="product-title">keyboard</h2>
+          <span class="product-price">£20</span>
+          <ion-icon name="cart" class="add-cart"></ion-icon>
+        </div>
+    
+  
+  
+  
+  
+      </div>
+    </div>
+    <script src="basket2.js"></script>
+  </body>
+  </html>
