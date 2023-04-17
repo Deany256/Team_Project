@@ -1,4 +1,4 @@
-const btnCart=document.querySelector('#cart-icon');
+const btnCart=document.querySelector('#cart-icon1');
 const cart=document.querySelector('.cart');
 const btnClose=document.querySelector('#cart-close');
 
@@ -128,7 +128,7 @@ function updateTotal()
 
   // Add Product Count in Cart Icon
 
-  const cartCount=document.querySelector('.cart-count');
+  const cartCount=document.querySelector('.cart-count1');
   let count=itemList.length;
   cartCount.innerHTML=count;
 
