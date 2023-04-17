@@ -39,7 +39,7 @@ def item():
             return render_template("item.html" , prod_name=prod_name, desc = desc, price = price)
 
 # Add a new route for shopping basket which will display items in the basket
-@app.route("/basket" , methods = ["GET" , "POST"])
+@app.route("/banner" , methods = ["GET" , "POST"])
 def basket():
     if "basket" in session:
         basket_items = session["basket"]
@@ -51,7 +51,7 @@ def basket():
         del session["basket"][item_index]
         return redirect("/basket")
     else:
-        return render_template("basket.html" , basket_items = basket_items)
+        return render_template("banner.html" , basket_items = basket_items)
 
 
 @app.route("/login", methods=["GET", "POST"])
