@@ -13,6 +13,7 @@
   }
   .heading ul {
     display: flex;
+    width: auto;
   }
   .logo a {
     color: white;
@@ -90,11 +91,14 @@
     right: 3px;
   }
   
-  .img-slider img {
+  .img-slider {
     height: 720px;
     width: 1080px;
+   
   }
-  @keyframes slide {
+
+ 
+  @keyframes slide1 {
     0% {
       left: 0px;
     }
@@ -136,9 +140,9 @@
     display: flex;
     float: left;
     position: relative;
-    width: 1080px;
-    height: 720px;
-    animation-name: slide;
+    width: auto;
+    height: auto;
+    animation-name: slide1;
     animation-duration: 10s;
     animation-iteration-count: infinite;
     transition-duration: 2s;
@@ -154,7 +158,7 @@
   .section1 {
     width: 1080px;
     overflow: hidden;
-  
+    
     justify-content: center;
     align-items: center;
     margin: 0px auto;
@@ -325,7 +329,7 @@
       position: absolute;
     }
   
-    @keyframes slide1 {
+    @keyframes slide {
       0% {
         left: 0vw;
       }
@@ -363,6 +367,8 @@
         left: 0vw;
       }
     }
+
+   
     .menu ul {
       display: flex;
       flex-direction: column;
@@ -408,12 +414,13 @@
       display: flex;
       float: left;
       position: relative;
-      width: 80%;
-      height: 60%;
-      animation-name: slide1;
+      width: auto;
+      height: auto;
+      animation-name: slide;
       animation-duration: 10s;
       animation-iteration-count: infinite;
       transition-duration: 2s;
+      margin: auto;
     }
     .section1 {
       width: 80%;
@@ -473,4 +480,10 @@
       display: flex;
       flex-wrap: nowrap;
     }
+  }
+  .our{
+    position: relative;
+    color: rgb(243, 168, 7);
+    font-size: xx-large;
+    font-weight: 100%;
   }
