@@ -22,7 +22,7 @@ def item():
         # Create a cursor object to interact with the database
         cursor = conn.cursor()
         # Execute an SQL statement to retrieve all products from the products table
-        cursor.execute("SELECT *  FROM Products WHERE product_id = 1")
+        cursor.execute("SELECT *  FROM Products WHERE product_id")
         # Fetch all rows returned by the SQL query
         products = cursor.fetchall()
         # updated item route to allow the user to add an item to their basket
