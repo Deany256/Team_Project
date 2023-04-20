@@ -14,10 +14,6 @@ users = {"user1": "password1", "user2": "password2"}
 def loadHomepage():
     return render_template("index.html")
 
-@app.route("/home")
-def loadHomehtmlpage():
-    return render_template("home.html")
-
 # Define the route for the products page
 @app.route("/item", methods = ["GET" , "post"])
 def item():
@@ -43,7 +39,7 @@ def item():
             return render_template("item.html" , prod_name=prod_name, desc = desc, price = price)
 
 # Add a new route for shopping basket which will display items in the basket
-@app.route("/banner" , methods = ["GET" , "POST"])
+@app.route("/basket" , methods = ["GET" , "POST"])
 def basket():
     if "basket" in session:
         basket_items = session["basket"]
@@ -55,19 +51,42 @@ def basket():
         del session["basket"][item_index]
         return redirect("/basket")
     else:
-        return render_template("banner.html" , basket_items = basket_items)
-
+        return render_template("basket.html" , basket_items = basket_items)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        username = request.form["username"]
-        password = request.form["password"]
-        if username in users and users[username] == password:
-            session["username"] = username
-            return redirect("/")
+        # Check if the user is trying to create a new account
+        if request.form.get("new_account"):
+            name = request.form["new_username"]
+            password = request.form["new_password"]
+            email = request.form["email"]
+            shipping_address = request.form["postal_address"]
+            # Check if the username already exists in the Customers table
+            with sqlite3.connect(DATABASE) as conn:
+                cursor = conn.cursor()
+                cursor.execute("SELECT * FROM Customers WHERE name = ?", (name,))
+                result = cursor.fetchone()
+                if result is not None:
+                    return "Username already exists, please choose a different username."
+                # Insert the new customer information into the Customers table
+                cursor.execute("INSERT INTO Customers (name, password, email, shipping_address) VALUES (?, ?, ?, ?)", (name, password, email, shipping_address))
+                conn.commit()
+                session["username"] = name
+                return redirect("/")
+        # Otherwise, the user is trying to login with an existing account
         else:
-            return "Invalid username or password"
+            name = request.form["username"]
+            password = request.form["password"]
+            with sqlite3.connect(DATABASE) as conn:
+                cursor = conn.cursor()
+                cursor.execute("SELECT * FROM Customers WHERE name = ? AND password = ?", (name, password))
+                result = cursor.fetchone()
+                if result is not None:
+                    session["username"] = name
+                    return redirect("/")
+                else:
+                    return "Invalid username or password"
     else:
         if "username" in session:
             return redirect("/test")
@@ -87,10 +106,6 @@ def home():
 def logout():
     session.pop("username", None)
     return redirect("/")
-
-@app.route("/contact")
-def contact():
-    return render_template("contact.html")
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
