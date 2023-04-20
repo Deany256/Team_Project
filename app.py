@@ -14,6 +14,10 @@ users = {"user1": "password1", "user2": "password2"}
 def loadHomepage():
     return render_template("index.html")
 
+@app.route("/home")
+def loadHomehtmlpage():
+    return render_template("home.html")
+
 # Define the route for the products page
 @app.route("/item", methods = ["GET" , "post"])
 def item():
@@ -82,7 +86,7 @@ def home():
 @app.route("/logout")
 def logout():
     session.pop("username", None)
-    return redirect("/login")
+    return redirect("/")
 
 @app.route("/contact")
 def contact():
