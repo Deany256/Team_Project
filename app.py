@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, session, redirect
+import bcrypt
 import sqlite3 
 
 # Define the database file name
@@ -56,35 +57,39 @@ def basket():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        # Check if the user is trying to create a new account
         if request.form.get("new_account"):
             name = request.form["new_username"]
-            password = request.form["new_password"]
+            password = request.form["new_password"].encode("utf-8")
+            hashed_password = bcrypt.hashpw(password, bcrypt.gensalt())
             email = request.form["email"]
             shipping_address = request.form["postal_address"]
-            # Check if the username already exists in the Customers table
+
             with sqlite3.connect(DATABASE) as conn:
                 cursor = conn.cursor()
                 cursor.execute("SELECT * FROM Customers WHERE name = ?", (name,))
                 result = cursor.fetchone()
                 if result is not None:
                     return "Username already exists, please choose a different username."
-                # Insert the new customer information into the Customers table
-                cursor.execute("INSERT INTO Customers (name, password, email, shipping_address) VALUES (?, ?, ?, ?)", (name, password, email, shipping_address))
+
+                cursor.execute("INSERT INTO Customers (name, password_hash, email, shipping_address) VALUES (?, ?, ?, ?)", (name, hashed_password, email, shipping_address))
                 conn.commit()
                 session["username"] = name
                 return redirect("/")
-        # Otherwise, the user is trying to login with an existing account
         else:
             name = request.form["username"]
-            password = request.form["password"]
+            password = request.form["password"].encode("utf-8")
+
             with sqlite3.connect(DATABASE) as conn:
                 cursor = conn.cursor()
-                cursor.execute("SELECT * FROM Customers WHERE name = ? AND password = ?", (name, password))
+                cursor.execute("SELECT * FROM Customers WHERE name = ?", (name,))
                 result = cursor.fetchone()
                 if result is not None:
-                    session["username"] = name
-                    return redirect("/")
+                    stored_hashed_password = result[2].encode("utf-8") 
+                    if bcrypt.checkpw(password, stored_hashed_password):
+                        session["username"] = name
+                        return redirect("/")
+                    else:
+                        return "Invalid username or password"
                 else:
                     return "Invalid username or password"
     else:
