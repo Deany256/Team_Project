@@ -107,6 +107,14 @@ def logout():
     session.pop("username", None)
     return redirect("/")
 
+@app.route("/hide")
+def hide():
+    return render_template("hide.html")
+
+@app.route("/banner")
+def banner():
+    return render_template("banner.html")
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
 
