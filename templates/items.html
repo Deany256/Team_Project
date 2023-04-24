@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Items</title>
+</head>
+<body>
+	<h1>Items</h1>
+	<table>
+		<thead>
+			<tr>
+				<th> product_id</th>
+				<th> product_name </th>
+				<th> short_description</th>
+                <th> long_description </th>
+                <th> brand</th>
+                <th> category</th>
+                <th> stock</th>
+                <th> price</th>
+                <th> image_url</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for item in items %}
+			<tr>
+				<td>{{ item[0] }}</td>
+				<td>{{ item[1] }}</td>
+				<td>{{ item[2] }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</body>
+</html>
