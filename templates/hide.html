@@ -2,10 +2,10 @@
 
 <head>
 	<title>Login and signup</title>
-	<link rel="stylesheet" type="text/css" href="static\style1.css">
+	<link rel="stylesheet" type="text/css" href="static/style1.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link rel="stylesheet" href="static\index.css">
+    <link rel="stylesheet" href="static/index.css">
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
 </head>
 <body>
@@ -54,9 +54,11 @@
 		<div class="layer"></div>
 		<div class="layer2"></div>
 		<div class="login_form">
+			<form method="POST">
 			<br><input type="text" placeholder="username" name="username" required><br>
 			<input type="password" placeholder="password" name="password" required><br>
 			<button class="submit" type="submit" value="Login">Submit</button>
+		</form>
 			<hr>
 			<span class="tag">or Login using</span>
 			<div class="icons">
@@ -68,11 +70,13 @@
 		</div>
 
 		<div class="SignUp_form">
+			<form method="POST">
 			<input type="text" placeholder="new username" name="new_username" required><br>
 			<input type="email" placeholder="email" name="email" required><br>
 			<input type="password" placeholder="new password" name="new_password" required><br>
             <input type="text" placeholder="Postal Address" name="postal_address" required><br>
 			<button class="submit" type="submit" value="Login">Submit</button>
+		</form>
 			<hr>
 			<span class="tag">or Signup using</span>
 			<div class="icons">
