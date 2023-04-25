@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, session, redirect
-import bcrypt
+import hashlib
 import sqlite3 
 
 # Define the database file name
@@ -60,13 +60,14 @@ def login():
         if request.form.get("new_account"):
             name = request.form["new_username"]
             password = request.form["new_password"].encode("utf-8")
-            hashed_password = bcrypt.hashpw(password, bcrypt.gensalt())
+            # hashed_password = bcrypt.hashpw(password, bcrypt.gensalt())
+            hashed_password = hashlib.sha256(password)
             email = request.form["email"]
             shipping_address = request.form["postal_address"]
 
             with sqlite3.connect(DATABASE) as conn:
                 cursor = conn.cursor()
-                cursor.execute("SELECT * FROM Customers WHERE name = ?", (name,))
+                cursor.execute("SELECT * FROM Customers WHERE name = ?", (name))
                 result = cursor.fetchone()
                 if result is not None:
                     return "Username already exists, please choose a different username."
@@ -81,11 +82,13 @@ def login():
 
             with sqlite3.connect(DATABASE) as conn:
                 cursor = conn.cursor()
-                cursor.execute("SELECT * FROM Customers WHERE name = ?", (name,))
+                cursor.execute("SELECT * FROM Customers WHERE name = ?", (name))
                 result = cursor.fetchone()
                 if result is not None:
-                    stored_hashed_password = result[2].encode("utf-8") 
-                    if bcrypt.checkpw(password, stored_hashed_password):
+                    stored_encoded_password = result[2].encode("utf-8") 
+                    stored_hashed_password = hashlib.sha256(stored_encoded_password)
+                    if password == stored_hashed_password:
+                    # if bcrypt.checkpw(password, stored_hashed_password):
                         session["username"] = name
                         return redirect("/")
                     else:
