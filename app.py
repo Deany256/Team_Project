@@ -94,17 +94,17 @@ def login():
                     return "Invalid username or password"
     else:
         if "username" in session:
-            return redirect("/test")
+            return redirect("/home")
         else:
             return render_template("login.html")
 
 # Home route
-@app.route("/test")
+@app.route("/home")
 def home():
     if "username" in session:
         return "Hello, " + session["username"]
     else:
-        return redirect("/login")
+        return redirect("/hide")
 
 # Logout route
 @app.route("/logout")
@@ -119,6 +119,14 @@ def hide():
 @app.route("/banner")
 def banner():
     return render_template("banner.html")
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
