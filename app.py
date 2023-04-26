@@ -3,7 +3,7 @@ import hashlib
 import sqlite3 
 
 # Define the database file name
-DATABASE = 'Basic_DB.db'
+DATABASE = "ecommerce.db"
 
 app = Flask(__name__, static_url_path='/static')
 app.secret_key = "secret_key"
@@ -57,36 +57,17 @@ def basket():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        if request.form.get("new_account"):
-            name = request.form["new_username"]
-            password = request.form["new_password"].encode("utf-8")
-            # hashed_password = bcrypt.hashpw(password, bcrypt.gensalt())
-            hashed_password = hashlib.sha256(password)
-            email = request.form["email"]
-            shipping_address = request.form["postal_address"]
-
-            with sqlite3.connect(DATABASE) as conn:
-                cursor = conn.cursor()
-                cursor.execute("SELECT * FROM Customers WHERE name = ?", (name))
-                result = cursor.fetchone()
-                if result is not None:
-                    return "Username already exists, please choose a different username."
-
-                cursor.execute("INSERT INTO Customers (name, password_hash, email, shipping_address) VALUES (?, ?, ?, ?)", (name, hashed_password, email, shipping_address))
-                conn.commit()
-                session["username"] = name
-                return redirect("/")
-        else:
+        if request.form.get("login"):
             name = request.form["username"]
             password = request.form["password"].encode("utf-8")
-
+            password = hashlib.sha256(password).hexdigest()
             with sqlite3.connect(DATABASE) as conn:
                 cursor = conn.cursor()
-                cursor.execute("SELECT * FROM Customers WHERE name = ?", (name))
+                cursor.execute("SELECT * FROM Customers WHERE name = ?", (name,))
                 result = cursor.fetchone()
                 if result is not None:
-                    stored_encoded_password = result[2].encode("utf-8") 
-                    stored_hashed_password = hashlib.sha256(stored_encoded_password)
+                    stored_hashed_password = result[4]
+
                     if password == stored_hashed_password:
                     # if bcrypt.checkpw(password, stored_hashed_password):
                         session["username"] = name
@@ -95,13 +76,38 @@ def login():
                         return "Invalid username or password"
                 else:
                     return "Invalid username or password"
+        else:
+            print("There's a FUCKING PROBLEM!!!")
     else:
         if "username" in session:
-            return redirect("/test")
+            return redirect("/")
         else:
-            return render_template("login.html")
+            return render_template("hide.html")
+        
+        
+@app.route("/signup", methods=["GET", "POST"])
+def signup():
+    if request.method == "POST":
+        if request.form.get("signup"):
+            name = request.form["new_username"]
+            password = request.form["new_password"].encode("utf-8")
+            # hashed_password = bcrypt.hashpw(password, bcrypt.gensalt())
+            hashed_password = hashlib.sha256(password).hexdigest()
+            email = request.form["email"]
+            shipping_address = request.form["postal_address"]
 
-# Home route
+            with sqlite3.connect(DATABASE) as conn:
+                cursor = conn.cursor()
+                cursor.execute("SELECT * FROM Customers WHERE name = ?", (name,))
+                result = cursor.fetchone()
+                if result is not None:
+                    return "Username already exists, please choose a different username."
+                else:
+                    cursor.execute("INSERT INTO Customers (name, email, password_hash, shipping_address) VALUES (?, ?, ?, ?);", (name, email, hashed_password, shipping_address))
+                    conn.commit()
+                    session["username"] = name
+                    return redirect("/")
+
 @app.route("/test")
 def home():
     if "username" in session:
@@ -115,7 +121,7 @@ def logout():
     session.pop("username", None)
     return redirect("/")
 
-@app.route("/hide")
+@app.route("/login_or_signup")
 def hide():
     return render_template("hide.html")
 

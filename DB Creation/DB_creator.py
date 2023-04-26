@@ -52,6 +52,21 @@ def create_customers_table():
         """)
         print("Created Customers table")
         
+# Define the function to create the Customers_Development table
+def create_customers_Dev_table():
+    with sqlite3.connect(DATABASE) as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS Customers_Dev (
+                customer_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT UNIQUE,
+                email TEXT UNIQUE,
+                password_hash TEXT,
+                shipping_address TEXT
+            );
+        """)
+        print("Created Customers_Dev table")
+        
 # Define the function to create the Orders table
 def create_orders_table():
     with sqlite3.connect(DATABASE) as conn:
@@ -211,7 +226,7 @@ def fill_order_details_table():
         print("Filled Order_Details table")
 
 # create_products_table()
-create_customers_table()
+# create_customers_table()
 # create_orders_table()
 # create_order_details_table()
 # create_cart_table()
@@ -222,8 +237,10 @@ create_customers_table()
 # close_DB()
 
 # fill_products_table()
-fill_customers_table()
+# fill_customers_table()
 # fill_orders_table()
 # fill_order_details_table()
 
 # remove_table()
+
+create_customers_Dev_table()
