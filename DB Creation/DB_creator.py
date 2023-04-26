@@ -8,6 +8,13 @@ def close_DB():
     with sqlite3.connect(DATABASE) as conn:
         conn.close()
 
+def remove_table():
+    with sqlite3.connect(DATABASE) as conn:
+        cursor = conn.cursor()
+        cursor.execute("DROP TABLE Customers")
+        conn.commit
+        print("Deleted Table")
+
 # Define the function to create the Products table
 def create_products_table():
     with sqlite3.connect(DATABASE) as conn:
@@ -25,6 +32,7 @@ def create_products_table():
                 image_url TEXT
             );
         """)
+        print("Created Products table")
 
 # Define the function to create the Customers table
 def create_customers_table():
@@ -34,6 +42,7 @@ def create_customers_table():
             CREATE TABLE IF NOT EXISTS Customers (
                 customer_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT,
+                username TEXT UNIQUE,
                 email TEXT UNIQUE,
                 password_hash TEXT,
                 shipping_address TEXT,
@@ -41,6 +50,22 @@ def create_customers_table():
                 cart_total REAL NOT NULL DEFAULT 0
             );
         """)
+        print("Created Customers table")
+        
+# Define the function to create the Customers_Development table
+def create_customers_Dev_table():
+    with sqlite3.connect(DATABASE) as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS Customers_Dev (
+                customer_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT UNIQUE,
+                email TEXT UNIQUE,
+                password_hash TEXT,
+                shipping_address TEXT
+            );
+        """)
+        print("Created Customers_Dev table")
         
 # Define the function to create the Orders table
 def create_orders_table():
@@ -55,6 +80,7 @@ def create_orders_table():
                 FOREIGN KEY (customer_id) REFERENCES Customers (customer_id)
             );
         """)
+        print("Created Orders table")
         
 # Define the function to create the Orders table
 def create_order_details_table():
@@ -70,6 +96,7 @@ def create_order_details_table():
                 FOREIGN KEY (order_id) REFERENCES Orders (order_id)
             );
         """)
+        print("Created Order_Details table")
 
 # Define the function to create the Cart table
 def create_cart_table():
@@ -85,6 +112,7 @@ def create_cart_table():
                 FOREIGN KEY (product_id) REFERENCES Products (product_id)
             );
         """)
+        print("Created Cart table")
 
 # Define the function to create the Shipping table
 def create_shipping_table():
@@ -100,6 +128,7 @@ def create_shipping_table():
                 FOREIGN KEY (order_id) REFERENCES Orders (order_id)
             );
         """)
+        print("Created Shipping table")
 
 # Define the function to create the Payment table
 # def create_payment_table():
@@ -128,6 +157,7 @@ def create_reviews_table():
                 FOREIGN KEY (product_id) REFERENCES Products (product_id)
             );
         """)
+        print("Created Reviews table")
 
 def fill_products_table():
     with sqlite3.connect(DATABASE) as conn:
@@ -145,21 +175,23 @@ def fill_products_table():
             VALUES (?, ?, ?, ?, ?, ?, ?);
             """, products)
         conn.commit()
+        print("Filled Products table")
         
 def fill_customers_table():
     with sqlite3.connect(DATABASE) as conn:
         cursor = conn.cursor()
         customers = [
-        #   (name, email, password_hash, shipping_address, shipping_postcode, cart_total)
-            ("George", "George@email.com", "password123", "shipping_address", "shipping_postcode", 0),
-            ("Archie", "Archie@email.com", "password_hash123", "shipping_address", "shipping_postcode", 0),
-            ("McDonald", "McDonald@email.com", "password_hashing", "shipping_address", "shipping_postcode", 0),
+        #   (name, username, email, password_hash, shipping_address, shipping_postcode, cart_total)
+            ("George", "Deany256", "George@email.com", "password123", "shipping_address", "shipping_postcode", 0),
+            ("Archie", "Archie123", "Archie@email.com", "password_hash123", "shipping_address", "shipping_postcode", 0),
+            ("McDonald", "McDonald1234", "McDonald@email.com", "password_hashing", "shipping_address", "shipping_postcode", 0),
         ]
         cursor.executemany("""
-            INSERT INTO Customers (name, email, password_hash, shipping_address, shipping_postcode, cart_total)
-            VALUES (?, ?, ?, ?, ?, ?);
+            INSERT INTO Customers (name, username, email, password_hash, shipping_address, shipping_postcode, cart_total)
+            VALUES (?, ?, ?, ?, ?, ?, ?);
             """, customers)
         conn.commit()
+        print("Filled Customers table")
 
 def fill_orders_table():
     with sqlite3.connect(DATABASE) as conn:
@@ -175,6 +207,7 @@ def fill_orders_table():
             VALUES (?, ?);
             """, orders)
         conn.commit()
+        print("Filled Orders table")
         
 def fill_order_details_table():
     with sqlite3.connect(DATABASE) as conn:
@@ -190,6 +223,7 @@ def fill_order_details_table():
             VALUES (?, ?, ?);
             """, order_details)
         conn.commit()
+        print("Filled Order_Details table")
 
 # create_products_table()
 # create_customers_table()
@@ -205,4 +239,8 @@ def fill_order_details_table():
 # fill_products_table()
 # fill_customers_table()
 # fill_orders_table()
-fill_order_details_table()
+# fill_order_details_table()
+
+# remove_table()
+
+create_customers_Dev_table()

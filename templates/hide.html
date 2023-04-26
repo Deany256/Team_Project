@@ -52,18 +52,19 @@
 
 		<div class="buttons">
 			<label for="chbox" class="login btn"><span>Login</span></label>
-			<label for="chbox" class="SignUp btn" name="new_account"><span>SignUp</span></label>
+			<label for="chbox" class="SignUp btn"  name="new_account"><span>SignUp</span></label>
 		</div>
 
 		<input type="checkbox" id="chbox">	
 		<div class="layer"></div>
 		<div class="layer2"></div>
-		<div class="login_form">
-			<form method="POST">
-			<br><input type="text" placeholder="username" name="username" required><br>
-			<input type="password" placeholder="password" name="password" required><br>
-			<button class="submit" type="submit" value="Login">Submit</button>
-		</form>
+		<div class="login_form" id="login-form">
+			<form method="POST" action="/login">
+				<br><input type="text" placeholder="username" name="username" required><br>
+				<input type="password" placeholder="password" name="password" required><br>
+				<button class="submit" type="submit" name="login" value="Login">Submit</button>
+			</form>
+			<p>Don't have an account? <button id="toggle-signup">Sign Up</button></p>
 			<hr>
 			<span class="tag">or Login using</span>
 			<div class="icons">
@@ -74,14 +75,15 @@
 			</div>
 		</div>
 
-		<div class="SignUp_form">
-			<form method="POST">
-			<input type="text" placeholder="new username" name="new_username" required><br>
-			<input type="email" placeholder="email" name="email" required><br>
-			<input type="password" placeholder="new password" name="new_password" required><br>
-            <input type="text" placeholder="Postal Address" name="postal_address" required><br>
-			<button class="submit" type="submit" value="Login">Submit</button>
-		</form>
+		<div class="SignUp_form" id="signup-form">
+			<form method="POST" action="/signup">
+				<input type="text" placeholder="new username" name="new_username" required><br>
+				<input type="email" placeholder="email" name="email" required><br>
+				<input type="password" placeholder="new password" name="new_password" required><br>
+				<input type="text" placeholder="Postal Address" name="postal_address" required><br>
+				<button class="submit" type="submit" name="signup" value="SignUp">Submit</button>
+			</form>
+			<p>Already have an account? <button id="toggle-login">Login</button></p>
 			<hr>
 			<span class="tag">or Signup using</span>
 			<div class="icons">
