@@ -11,7 +11,10 @@ app.secret_key = "secret_key"
 
 @app.route("/")
 def loadHomepage():
-    return render_template("index.html")
+    if "username" in session:
+        return render_template("index.html", name = session["username"])
+    else:
+        return render_template("index.html", name= "signin/signup")
 
 # Define the route for the products page
 @app.route("/item", methods = ["GET" , "post"])
