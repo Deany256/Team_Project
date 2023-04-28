@@ -34,9 +34,6 @@ def item():
             return redirect("/basket")
         else:
         # Render the index.html template, passing in the list of prodcuts as a varibable called 'products'
-            prod_name=products[0]
-            price = products[0]
-            desc = products[0]
             items = products
             return render_template("items.html" , items = items)
 
