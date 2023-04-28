@@ -8,8 +8,6 @@ DATABASE = "ecommerce.db"
 app = Flask(__name__, static_url_path='/static')
 app.secret_key = "secret_key"
 
-# DUMMY DB
-users = {"user1": "password1", "user2": "password2"}
 
 @app.route("/")
 def loadHomepage():
