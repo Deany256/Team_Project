@@ -37,7 +37,8 @@ def item():
             prod_name=products[0]
             price = products[0]
             desc = products[0]
-            return render_template("items.html" , prod_name=prod_name, desc = desc, price = price)
+            items = products
+            return render_template("items.html" , items = items)
 
 # Add a new route for shopping basket which will display items in the basket
 @app.route("/basket" , methods = ["GET" , "POST"])
