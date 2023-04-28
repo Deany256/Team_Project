@@ -11,7 +11,7 @@ def close_DB():
 def remove_table():
     with sqlite3.connect(DATABASE) as conn:
         cursor = conn.cursor()
-        cursor.execute("DROP TABLE Customers")
+        cursor.execute("DROP TABLE Customers_Dev")
         conn.commit
         print("Deleted Table")
 
@@ -241,6 +241,6 @@ def fill_order_details_table():
 # fill_orders_table()
 # fill_order_details_table()
 
-# remove_table()
+remove_table()
 
-create_customers_Dev_table()
+# create_customers_Dev_table()
