@@ -124,7 +124,7 @@ def logout():
 
 @app.route("/login_or_signup")
 def hide():
-    return render_template("hide.html")
+    return render_template("login_and_signup.html")
 
 @app.route("/banner")
 def banner():
