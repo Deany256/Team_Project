@@ -23,7 +23,7 @@ def item():
         # Create a cursor object to interact with the database
         cursor = conn.cursor()
         # Execute an SQL statement to retrieve all products from the products table
-        cursor.execute("SELECT *  FROM Products WHERE product_id")
+        cursor.execute("SELECT *  FROM Products")
         # Fetch all rows returned by the SQL query
         products = cursor.fetchall()
         # updated item route to allow the user to add an item to their basket
@@ -34,10 +34,10 @@ def item():
             return redirect("/basket")
         else:
         # Render the index.html template, passing in the list of prodcuts as a varibable called 'products'
-            prod_name=products[0][1]
-            price = products[0][3]
-            desc = products[0][2]
-            return render_template("item.html" , prod_name=prod_name, desc = desc, price = price)
+            prod_name=products[0]
+            price = products[0]
+            desc = products[0]
+            return render_template("items.html" , prod_name=prod_name, desc = desc, price = price)
 
 # Add a new route for shopping basket which will display items in the basket
 @app.route("/basket" , methods = ["GET" , "POST"])
