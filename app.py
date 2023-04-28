@@ -8,12 +8,13 @@ DATABASE = "ecommerce.db"
 app = Flask(__name__, static_url_path='/static')
 app.secret_key = "secret_key"
 
-# DUMMY DB
-users = {"user1": "password1", "user2": "password2"}
 
 @app.route("/")
 def loadHomepage():
-    return render_template("index.html")
+    if "username" in session:
+        return render_template("index.html", name = session["username"])
+    else:
+        return render_template("index.html", name= "signin/signup")
 
 # Define the route for the products page
 @app.route("/item", methods = ["GET" , "post"])
@@ -87,7 +88,8 @@ def login():
 def signup():
     if request.method == "POST":
         if request.form.get("signup"):
-            name = request.form["new_username"]
+            name = request.form["name"]
+            username = request.form["new_username"]
             password = request.form["new_password"].encode("utf-8")
             # hashed_password = bcrypt.hashpw(password, bcrypt.gensalt())
             hashed_password = hashlib.sha256(password).hexdigest()
@@ -96,12 +98,12 @@ def signup():
 
             with sqlite3.connect(DATABASE) as conn:
                 cursor = conn.cursor()
-                cursor.execute("SELECT * FROM Customers WHERE name = ?", (name,))
+                cursor.execute("SELECT * FROM Customers WHERE name = ?", (username,))
                 result = cursor.fetchone()
                 if result is not None:
                     return "Username already exists, please choose a different username."
                 else:
-                    return "Invalid username or password"
+                    cursor.execute("INSERT into Customers (name, username, email, password_hash, shipping_address) VALUES (?, ?, ?, ?, ?)", (name, username, email, hashed_password,shipping_address))
     else:
         if "username" in session:
             return redirect("/home")
@@ -112,9 +114,10 @@ def signup():
 @app.route("/home")
 def home():
     if "username" in session:
-        return "Hello, " + session["username"]
+        # return "Hello, " + session["username"]
+        return render_template("home.html", username = session["username"])
     else:
-        return redirect("/hide")
+        return redirect("/login_or_signup")
 
 # Logout route
 @app.route("/logout")
