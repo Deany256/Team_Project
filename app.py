@@ -103,17 +103,20 @@ def signup():
                 if result is not None:
                     return "Username already exists, please choose a different username."
                 else:
-                    cursor.execute("INSERT INTO Customers (name, email, password_hash, shipping_address) VALUES (?, ?, ?, ?);", (name, email, hashed_password, shipping_address))
-                    conn.commit()
-                    session["username"] = name
-                    return redirect("/")
+                    return "Invalid username or password"
+    else:
+        if "username" in session:
+            return redirect("/home")
+        else:
+            return render_template("login.html")
 
-@app.route("/test")
+# Home route
+@app.route("/home")
 def home():
     if "username" in session:
         return "Hello, " + session["username"]
     else:
-        return redirect("/login")
+        return redirect("/hide")
 
 # Logout route
 @app.route("/logout")
@@ -129,13 +132,13 @@ def hide():
 def banner():
     return render_template("banner.html")
 
-@app.route("/contact")
-def contact_us():
-    return render_template("contact.html")
-
 @app.route("/about")
-def about_us():
+def about():
     return render_template("about.html")
+
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
