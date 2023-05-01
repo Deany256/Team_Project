@@ -2,6 +2,7 @@
 <head>
 
   <link rel="stylesheet" href="static\ban.css">
+  <link rel="stylesheet" href="static\logout.css">
   <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
@@ -9,7 +10,7 @@
 
 <body>
   <header>
-    <img src="./image/logo.jpg.jpg" class="logo" height="100%">
+    <img src="static/image/logo.jpg.jpg" class="logo" height="100%">
     <!--<div class="logo"><a href="#">ShoPperZ</a></div>-->
     <div class="menu">
       <a href="#">
@@ -19,42 +20,39 @@
       <ul>
         <li><a href="#" class="under">HOME</a></li>
         <li><a href="#" class="under">SHOP</a></li>
-        <li><a href="/banner" class="under">OUR PRODUCTS</a></li>
+        <li><a href="/login_or_signup" class="under">OUR PRODUCTS</a></li>
         <li><a href="#" class="under">CONTACT US</a></li>
         <li><a href="#" class="under">ABOUT US</a></li>
       </ul>
     </div>
     <div class="search">
-
-      <a href=""><input type="text" placeholder="search products" id="input">
-        <ion-icon class="s" name="search"></ion-icon>
-      </a>
-    </div>
+        <input type="text" placeholder="Search" id="input">
+      </div>
     <div class="heading">
       <ul>
-        <li><a href="/home" class="under">HOME</a></li>
-         <li><a href="/login_or_signup"class="under">SIGN IN/SIGN UP</a></li>
-        <li><a href="/item" class="under">OUR PRODUCTS</a></li>
-        <li><a href="/contact" class="under">CONTACT US</a></li>
-        <li><a href="/about" class="under">ABOUT US</a></li>
-        <li><a href="/logout"  class="material-symbols-outlined">LOGOUT</a></li>
-        <div class="box1">
-          <div class="cart-count1">0</div>
-          <ion-icon name="cart"  id="cart-icon1" ></ion-icon>
-        </div>
+       <li><a href="/" class="under">HOME</a></li>
+       <li><a href="/login_or_signup" class="under">SIGN IN/SIGN UP</a></li>
+          <li><a href="/banner" class="under">OUR PRODUCTS</a></li>
+          <li><a href="/contact" class="under">CONTACT US</a></li>
+          <li><a href="/about" class="under">ABOUT US</a></li>
+          <li><a href="/logout"  class="material-symbols-outlined">LOGOUT</a></li>
+          <div class="box1">
+            <div class="cart-count1">0</div>
+            <ion-icon name="cart"  id="cart-icon1" ></ion-icon>
+          </div>
       </ul>
     </div>
     <div class="heading1">
       <ion-icon name="menu" class="ham"></ion-icon>
     </div>
+    <div class="navigation">
+  
+        <link rel="stylesheet" href="logout.css">
+        <a class="button" href="">
+      
+      <div class="logout">LOGOUT</div>
+    
+        </a>
+      
+    </div>
   </header>
-<html>
-  <head>
-    <title>Home</title>
-  </head>
-  <body>
-    <h1>Home</h1>
-    <p>Hello, {{ username }}!</p>
-    <a href="/logout">Logout</a>
-  </body>
-</html>

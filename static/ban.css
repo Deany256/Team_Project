@@ -315,6 +315,11 @@ header {
   width: 100%;
   background: black;
 }
+
+header .navigation {
+  width: 5%;
+  background-color: blue;
+}
 .heading ul {
   display: flex;
   width: auto;
@@ -393,6 +398,11 @@ ion-icon:hover {
 header a ion-icon {
   position: relative;
   right: 3px;
+}
+
+header .navigation {
+  width: 5%;
+  background-color: blue;
 }
 
 .img-slider {
@@ -476,6 +486,9 @@ header a ion-icon {
   justify-content: center;
   margin: 10px auto;
 }
+.section2 {
+  display: inline-block;
+}
 .section2 .container .items {
   margin: 10px;
   width: 200px;
@@ -483,6 +496,7 @@ header a ion-icon {
   background-color: white;
   border: 2.5px solid black;
   border-radius: 12px;
+  float: left;
 }
 .section2 .container .items .name {
   text-align: center;
@@ -603,6 +617,9 @@ footer {
 }
 .items {
   overflow: hidden;
+  
+  
+  
 }
 .ham,
 .close {
@@ -616,6 +633,7 @@ footer {
 
   .items {
     transform: scale(0.9);
+    
   }
   .img-slider img {
     height: 60vw;
@@ -791,6 +809,20 @@ footer {
   font-size: xx-large;
   font-weight: 100%;
 }
+
+header .material-symbols-outlined {
+  color:white;
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+
+
+
+
 
   
 
