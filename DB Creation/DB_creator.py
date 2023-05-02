@@ -224,6 +224,24 @@ def fill_order_details_table():
             """, order_details)
         conn.commit()
         print("Filled Order_Details table")
+        
+def fill_product_images():
+    with sqlite3.connect(DATABASE) as conn:
+        cursor = conn.cursor()
+        products = [
+        #   (image_url)
+            ("static\Product_images\framework.png",),
+            ("static\Product_images\GeForce-ADA-RTX4070-Back.png",),
+            ("static\Product_images\LPXRam.png",),
+            ("static\Product_images\CrucialRam.png",),
+            ("static\Product_images\AMDRyzen5600x.png",),
+        ]
+        cursor.executemany("""
+            INSERT INTO Products (image_url)
+            VALUES (?);
+            """, products)
+        conn.commit()
+        print("Filled Products table")
 
 # create_products_table()
 # create_customers_table()
@@ -240,7 +258,8 @@ def fill_order_details_table():
 # fill_customers_table()
 # fill_orders_table()
 # fill_order_details_table()
+fill_product_images()
 
-remove_table()
+# remove_table()
 
 # create_customers_Dev_table()
