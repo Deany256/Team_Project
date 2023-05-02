@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="static\ban.css">
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
 	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
 <body>
     <header>
@@ -32,10 +33,11 @@
       <div class="heading">
         <ul>
           <li><a href="/" class="under">HOME</a></li>
-          <li><a href="/hide" class="under">SIGN IN/SIGN UP</a></li>
-          <li><a href="/banner" class="under">OUR PRODUCTS</a></li>
+          <li><a href="/login_or_signup"class="under">SIGN IN/SIGN UP</a></li>
+          <li><a href="/item" class="under">OUR PRODUCTS</a></li>
           <li><a href="/contact" class="under">CONTACT US</a></li>
           <li><a href="/about" class="under">ABOUT US</a></li>
+		  <li><a href="/logout"  class="material-symbols-outlined">LOGOUT</a></li>
 		  <div class="box1">
             <div class="cart-count1">0</div>
             <ion-icon name="cart"  id="cart-icon1" ></ion-icon>
@@ -64,7 +66,7 @@
 				<input type="password" placeholder="password" name="password" required><br>
 				<button class="submit" type="submit" name="login" value="Login">Submit</button>
 			</form>
-			<p>Don't have an account? <button id="toggle-signup">Sign Up</button></p>
+			<p>Don't have an account? <button id="toggle-signup" action="/signup">Sign Up</button></p>
 			<hr>
 			<span class="tag">or Login using</span>
 			<div class="icons">
@@ -77,13 +79,14 @@
 
 		<div class="SignUp_form" id="signup-form">
 			<form method="POST" action="/signup">
+				<input type="text" placeholder="name" name="name" required><br>
 				<input type="text" placeholder="new username" name="new_username" required><br>
 				<input type="email" placeholder="email" name="email" required><br>
 				<input type="password" placeholder="new password" name="new_password" required><br>
 				<input type="text" placeholder="Postal Address" name="postal_address" required><br>
 				<button class="submit" type="submit" name="signup" value="SignUp">Submit</button>
 			</form>
-			<p>Already have an account? <button id="toggle-login">Login</button></p>
+			<p>Already have an account? <button  id="toggle-login" action="/login">Login</button></p>
 			<hr>
 			<span class="tag">or Signup using</span>
 			<div class="icons">
