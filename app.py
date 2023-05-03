@@ -1,9 +1,6 @@
-
 from flask import Flask, render_template, request, session, redirect
 import hashlib
 import sqlite3 
-
-
 
 # Define the database file name
 DATABASE = "ecommerce.db"
@@ -143,32 +140,6 @@ def about():
 @app.route("/contact")
 def contact():
     return render_template("contact.html")
-
-@app.route("/viewcart")
-def viewcart():
-    return render_template("viewcart.html")
-
-
-@app.route('/add-to-cart', methods=['POST'])
-def addToCart():
-    product_id = request.json[' product_id']
-    # add item to the cart here
-    return render_template ('/cart.html')
-
-# Define a cart as a global variable for simplicity
-cart = {'item1': 3, 'item2': 1, 'item3': 2}
-
-@app.route('/view-cart')
-def view_cart():
-    return render_template('view_cart.html', cart=cart)
-
-@app.route('/view-cart', methods=['POST'])
-def add_to_cart():
-    item =['item']
-    quantity = int(request.form['quantity'])
-    # Add item and quantity to user's cart here
-    return render_template('view-cart.html', item=item, quantity=quantity)
-
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
