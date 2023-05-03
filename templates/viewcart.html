@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>View Cart</title>
+  </head>
+  <body>
+    <h1>View Cart</h1>
+    <ul>
+      {% for item, quantity in cart.items() %}
+        <li>{{item[6]}} - Price: {{item[7]}}</li>
+      {% endfor %}
+    </ul>
+    <button type="button" class="btn-buy" onclick="myFunction()">Checkout</button>
+<script>
+    function myFunction() {
+      alert("Your order has been placed!");
+     }
+    </script>
+  </body>
+</html>
