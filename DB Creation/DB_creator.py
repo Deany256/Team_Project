@@ -224,6 +224,44 @@ def fill_order_details_table():
             """, order_details)
         conn.commit()
         print("Filled Order_Details table")
+        
+def fill_product_images():
+    with sqlite3.connect(DATABASE) as conn:
+        cursor = conn.cursor()
+        products = [
+            ("static/Product_images/framework.png", 1),  # (image_url, product_id)
+            ("static/Product_images/GeForce-ADA-RTX4070-Back.png", 2),
+            ("static/Product_images/LPXRam.png", 3),
+            ("static/Product_images/CrucialRam.png", 4),
+            ("static/Product_images/AMDRyzen5600x.png", 5),
+        ]
+        cursor.executemany("""
+            UPDATE Products
+            SET image_url = ?
+            WHERE product_id = ?;
+        """, products)
+        conn.commit()
+        print("Updated Products table")
+        
+def Remove_Customer():
+    with sqlite3.connect(DATABASE) as conn:
+        item = input("Enter ID of value to be removed:  ")
+        while item != "":
+            cursor = conn.cursor()
+            cursor.execute("DELETE FROM Customers WHERE customer_id = (?)",(item,))
+            conn.commit()
+            print("Deleted Value")
+            item = input("Enter ID of value to be removed:  ")
+
+def Remove_Product():
+    with sqlite3.connect(DATABASE) as conn:
+        item = input("Enter ID of value to be removed:  ")
+        while item != "":
+            cursor = conn.cursor()
+            cursor.execute("DELETE FROM Products WHERE product_id = (?)",(item,))
+            conn.commit()
+            print("Deleted Value")
+            item = input("Enter ID of value to be removed:  ")
 
 # create_products_table()
 # create_customers_table()
@@ -240,7 +278,10 @@ def fill_order_details_table():
 # fill_customers_table()
 # fill_orders_table()
 # fill_order_details_table()
+fill_product_images()
 
-remove_table()
+# remove_table()
+# Remove_Customer()
+# Remove_Product()
 
 # create_customers_Dev_table()

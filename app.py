@@ -75,13 +75,11 @@ def login():
                         return "Invalid username or password"
                 else:
                     return "Invalid username or password"
-        else:
-            print("There's a FUCKING PROBLEM!!!")
     else:
         if "username" in session:
             return redirect("/")
         else:
-            return render_template("hide.html")
+            return render_template("login_and_signup.html")
         
         
 @app.route("/signup", methods=["GET", "POST"])
@@ -104,11 +102,13 @@ def signup():
                     return "Username already exists, please choose a different username."
                 else:
                     cursor.execute("INSERT into Customers (name, username, email, password_hash, shipping_address) VALUES (?, ?, ?, ?, ?)", (name, username, email, hashed_password,shipping_address))
+                if "username" in session:
+                    return render_template("index.html")
     else:
         if "username" in session:
             return redirect("/home")
         else:
-            return render_template("login.html")
+            return render_template("login_and_signup.html")
 
 # Home route
 @app.route("/home")
