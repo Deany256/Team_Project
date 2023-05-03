@@ -82,36 +82,37 @@
 			</tbody>
 		</table>
 	</body>
-</body>
-<script>
-    function addToCart(itemId) {
-      fetch('/view-cart', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          'itemId': itemId
-        })
-      });
-    }
-
-	const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-	const items = document.querySelectorAll('.items li');
-
-	checkboxes.forEach(checkbox => {
-		checkbox.addEventListener('change', () => {
-			const selectedCategories = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
-			items.forEach(item => {
-				const itemCategory = item.className.split(' ').find(className => className.startsWith('category-'));
-				if (itemCategory) {
-					const category = itemCategory.split('-')[1];
-					item.style.display = selectedCategories.includes(category) ? 'block' : 'none';
-				}
+	<script>
+		function addToCart(itemId) {
+		  fetch('/view-cart', {
+			method: 'POST',
+			headers: {
+			  'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+			  'itemId': itemId
+			})
+		  });
+		}
+	
+		const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+		const items = document.querySelectorAll('.items li');
+	
+		checkboxes.forEach(checkbox => {
+			checkbox.addEventListener('change', () => {
+				const selectedCategories = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
+				items.forEach(item => {
+					const itemCategory = item.className.split(' ').find(className => className.startsWith('category-'));
+					if (itemCategory) {
+						const category = itemCategory.split('-')[1];
+						item.style.display = selectedCategories.includes(category) ? 'block' : 'none';
+					}
+				});
 			});
 		});
-	});
-</script>
+	</script>
+</body>
+
  
 </html>
 
