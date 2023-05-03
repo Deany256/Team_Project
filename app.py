@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template, request, session, redirect
 import hashlib
 import sqlite3 
@@ -105,7 +104,7 @@ def signup():
                     return "Username already exists, please choose a different username."
                 else:
                     cursor.execute("INSERT into Customers (name, username, email, password_hash, shipping_address) VALUES (?, ?, ?, ?, ?)", (name, username, email, hashed_password,shipping_address))
-                if "username" in session:
+                    session["username"] = username
                     return render_template("index.html")
     else:
         if "username" in session:
@@ -155,11 +154,12 @@ def addToCart():
     # add item to the cart here
     return render_template ('/cart.html')
 
-# Define a cart as a global variable for simplicity
-cart = {'item1': 3, 'item2': 1, 'item3': 2}
+
 
 @app.route('/view-cart')
 def view_cart():
+    # Define a cart as a global variable for simplicity
+    cart = {'item1': 3, 'item2': 1, 'item3': 2}
     return render_template('view_cart.html', cart=cart)
 
 @app.route('/view-cart', methods=['POST'])
