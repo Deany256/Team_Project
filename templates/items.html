@@ -62,7 +62,6 @@
 		<h1>Items</h1>
 		<table>
 			
-<<<<<<< Updated upstream
 			<tbody>
 				{% for item in items %}
 					<tr>
@@ -83,57 +82,37 @@
 			</tbody>
 		</table>
 	</body>
-=======
-			<tr>	
-				<div class="section2">
-					<div class="container">
-					  <div class="items">
-						<img src={{item[8]}} alt="ERROR !!">
-						<li>	
-							<li>{{item[1]}} - {{item[6]}} - {{item[7]}}<button  onclick="addToCart(itemId)">Add to Cart</button></li>
-					</li>
-			</tr>
-			{% endfor %}
-		
-	</div>
-	</div>
-	</div>
-</div>
-		</tbody>
-	</table>
+	<script>
+		function addToCart(itemId) {
+		  fetch('/view-cart', {
+			method: 'POST',
+			headers: {
+			  'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+			  'itemId': itemId
+			})
+		  });
+		}
 	
-
->>>>>>> Stashed changes
-</body>
-<script>
-    function addToCart(itemId) {
-      fetch('/view-cart', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          'itemId': itemId
-        })
-      });
-    }
-
-	const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-	const items = document.querySelectorAll('.items li');
-
-	checkboxes.forEach(checkbox => {
-		checkbox.addEventListener('change', () => {
-			const selectedCategories = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
-			items.forEach(item => {
-				const itemCategory = item.className.split(' ').find(className => className.startsWith('category-'));
-				if (itemCategory) {
-					const category = itemCategory.split('-')[1];
-					item.style.display = selectedCategories.includes(category) ? 'block' : 'none';
-				}
+		const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+		const items = document.querySelectorAll('.items li');
+	
+		checkboxes.forEach(checkbox => {
+			checkbox.addEventListener('change', () => {
+				const selectedCategories = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
+				items.forEach(item => {
+					const itemCategory = item.className.split(' ').find(className => className.startsWith('category-'));
+					if (itemCategory) {
+						const category = itemCategory.split('-')[1];
+						item.style.display = selectedCategories.includes(category) ? 'block' : 'none';
+					}
+				});
 			});
 		});
-	});
-</script>
+	</script>
+</body>
+
  
 </html>
 
