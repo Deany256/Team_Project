@@ -487,9 +487,11 @@ header .navigation {
   flex-wrap: wrap;
   justify-content: center;
   margin: 10px auto;
+  display: inline-block;
 }
 .section2 {
   display: inline-block;
+ 
 }
 .section2 .container .items {
   margin: 10px;
@@ -814,6 +816,7 @@ footer {
 
 header .material-symbols-outlined {
   color:white;
+  background-color: black;
   font-variation-settings:
   'FILL' 0,
   'wght' 400,

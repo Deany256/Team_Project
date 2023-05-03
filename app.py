@@ -71,7 +71,7 @@ def login():
 
                     if password == stored_hashed_password:
                     # if bcrypt.checkpw(password, stored_hashed_password):
-                        session["username"] = name
+                        session["username" ] = name                       
                         return redirect("/")
                     else:
                         return "Invalid username or password"
