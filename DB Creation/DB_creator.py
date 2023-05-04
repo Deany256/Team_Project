@@ -262,7 +262,50 @@ def Remove_Product():
             conn.commit()
             print("Deleted Value")
             item = input("Enter ID of value to be removed:  ")
+            
+def Reset_Cart_table():
+    with sqlite3.connect(DATABASE) as conn:
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM cart")
+        print("Cleared Cart")
+            
+def Cart_Test():
+    with sqlite3.connect(DATABASE) as conn:
+        Customer = input("Enter Id of the customer: ")
+        itemid = input("Enter ID of Product to be moved to cart: ")
+        Quantity = input("Enter Quantity of the items you want: ")
+        cursor = conn.cursor()
+        
+        # Lower value in the stock column
+        cursor.execute("UPDATE products SET stock = stock - ? WHERE product_id = ?", (Quantity, itemid,))
+        # Insert Item to cart
+        cursor.execute("INSERT INTO cart (customer_id,product_id,quantity) VALUES (?,?,?)", (Customer, itemid, Quantity,))
+        conn.commit()
 
+
+def Cart_smart_test():
+    with sqlite3.connect(DATABASE) as conn:
+        Customer = input("Enter Id of the customer: ")
+        itemid = input("Enter ID of Product to be moved to cart: ")
+        Quantity = input("Enter Quantity of the items you want: ")
+        cursor = conn.cursor()
+        # Check if the row with the customer_id and product_id exists in the table
+        cursor.execute("SELECT COUNT(*) FROM cart WHERE customer_id = ? AND product_id = ?", (Customer, itemid,))
+        result = cursor.fetchone()
+        if result[0] > 0:
+            print("Present :)")
+            # Lower value in the stock column
+            cursor.execute("UPDATE products SET stock = stock - ? WHERE product_id = ?", (Quantity, itemid,))
+            # update item count in cart table
+            cursor.execute("UPDATE cart SET quantity = quantity + ? WHERE customer_id = ? AND product_id = ?", (Quantity, Customer, itemid,))
+        else:
+            # Lower value in the stock column
+            cursor.execute("UPDATE products SET stock = stock - ? WHERE product_id = ?", (Quantity, itemid,))
+            # Insert Item to cart
+            cursor.execute("INSERT INTO cart (customer_id,product_id,quantity) VALUES (?,?,?)", (Customer, itemid, Quantity,))
+            print("not present :(")
+            
+        conn.commit()
 # create_products_table()
 # create_customers_table()
 # create_orders_table()
@@ -282,6 +325,11 @@ def Remove_Product():
 
 # remove_table()
 # Remove_Customer()
-Remove_Product()
+# Remove_Product()
+
+# Reset_Cart_table()
+
+# Cart_Test()
+Cart_smart_test()
 
 # create_customers_Dev_table()
