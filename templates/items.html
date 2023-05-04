@@ -10,84 +10,107 @@
 <body>
 	<body>
 		<header>
-		  <img src="static/image/logo.jpg.jpg" class="logo" height="100%">
-		  <!--<div class="logo"><a href="#">ShoPperZ</a></div>-->
-		  <div class="menu">
-			<a href="#">
-			  <ion-icon name="close" class="close"></ion-icon>
-			</a>
-	  
-			<ul>
-			  <li><a href="#" class="under">HOME</a></li>
-			  <li><a href="#" class="under">SHOP</a></li>
-			  <li><a href="/banner" class="under">OUR PRODUCTS</a></li>
-			  <li><a href="#" class="under">CONTACT US</a></li>
-			  <li><a href="#" class="under">ABOUT US</a></li>
-			</ul>
-		  </div>
-		  <div class="search">
-			  <input type="text" placeholder="Search" id="input">
+			<img src="static/image/logo.jpg.jpg" class="logo" height="100%">
+			<!--<div class="logo"><a href="#">ShoPperZ</a></div>-->
+			<div class="menu">
+				<a href="#">
+					<ion-icon name="close" class="close"></ion-icon>
+				</a>
+				<ul>
+					<li><a href="#" class="under">HOME</a></li>
+					<li><a href="#" class="under">SHOP</a></li>
+					<li><a href="/banner" class="under">OUR PRODUCTS</a></li>
+					<li><a href="#" class="under">CONTACT US</a></li>
+					<li><a href="#" class="under">ABOUT US</a></li>
+				</ul>
+		  	</div>
+		  	<div class="search">
+			  	<input type="text" placeholder="Search" id="input">
 			</div>
-		  <div class="heading">
-			<ul>
-				<li><a href="/" class="under">HOME</a></li>
-				<li><a href="/login_or_signup" class="under">SIGN IN/SIGN UP</a></li>
-				<li><a href="/item" class="under">OUR PRODUCTS</a></li>
-				<li><a href="/contact" class="under">CONTACT US</a></li>
-				<li><a href="/about" class="under">ABOUT US</a></li>
-				<li><a href="/logout"  class="material-symbols-outlined">LOGOUT</a></li>
-				<div class="box1">
-				  <div class="cart-count1">0</div>
-				  <ion-icon name="cart"  id="cart-icon1" ></ion-icon>
-				</div>
-			</ul>
-		  </div>
-		  <div class="heading1">
-			<ion-icon name="menu" class="ham"></ion-icon>
-		  </div>
+		  	<div class="heading">
+				<ul>
+					<li><a href="/" class="under">HOME</a></li>
+					<li><a href="/login_or_signup" class="under">SIGN IN/SIGN UP</a></li>
+					<li><a href="/item" class="under">OUR PRODUCTS</a></li>
+					<li><a href="/contact" class="under">CONTACT US</a></li>
+					<li><a href="/about" class="under">ABOUT US</a></li>
+					<li><a href="/logout"  class="material-symbols-outlined">LOGOUT</a></li>
+					<div class="box1">
+						<div class="cart-count1">0</div>
+						<ion-icon name="cart"  id="cart-icon1" ></ion-icon>
+					</div>
+				</ul>
+		  	</div>
+		 	<div class="heading1">
+				<ion-icon name="menu" class="ham"></ion-icon>
+		 	</div>
 		</header>
-	  
-	<h1>Items</h1>
-	<table>
-		<thead>
-			<tr>
-				<th > product_id</th>  
-				<th > product_name </th>
-				<th> short_description</th>
-                <th> long_description </th>
-                <th> brand</th>
-                <th> category</th>
-                <th> stock</th>
-                <th> price</th>
-                <th> image_url</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for item in items %}
-			
-			<tr>	
-				<div class="section2">
-					<div class="container">
-					  <div class="items">
-						<li>
-						<p>{{item[1]}}</p> 
-						<p>{{item[2]}}</p> 
-						<p>{{item[3]}}</p> 
-						<p>{{item[4]}}</p> 
-						<p>{{item[5]}}</p> 
-						<p>{{item[6]}}</p> 
-						<p>{{item[7]}}</p> 
-						<p>{{item[8]}}</p> 
-					</li>
-			</tr>
-			{% endfor %}
+		<div>
+			<form action="/FilterValues">
+				<input type="checkbox" id="RAM" name="RAM" value="RAM">
+				<label for="RAM"> RAM</label><br>
+				<input type="checkbox" id="Laptop" name="Laptop" value="Laptop">
+				<label for="Laptop"> Laptop</label><br>
+				<input type="checkbox" id="CPU" name="CPU" value="CPU">
+				<label for="CPU"> CPU</label><br>
+				<input type="checkbox" id="GPU" name="GPU" value="GPU">
+				<label for="GPU"> GPU</label><br><br>
+			</form>
 		</div>
-	</div>
-	</div>
-	</div>
-		</tbody>
-	</table>
 
 
+		<h1>Items</h1>
+		<table>
+			
+			<tbody>
+				{% for item in items %}
+					<tr>
+						<div class="section2">
+							<div class="container">
+								<div class="items">
+									<img src={{item[8]}} alt="ERROR !!">
+									<li class="category-{{item[5]}}">	
+										<li class="category-{{item[5]}}">{{item[1]}} - {{item[6]}} - {{item[7]}}
+											<button  onclick="addToCart('{{ item[0] }}')">Add to Cart</button>
+										</li>
+									</li>
+								</div>
+							</div>
+						</div>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</body>
+	<script>
+		function addToCart(itemId) {
+		  	fetch('/add_to_cart', {
+				method: 'POST',
+				body: JSON.stringify({itemId: itemID}),
+				headers: {
+					'Content-Type': 'application/json'
+				},
+		  	});
+		}
+	
+		const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+		const items = document.querySelectorAll('.items li');
+	
+		checkboxes.forEach(checkbox => {
+			checkbox.addEventListener('change', () => {
+				const selectedCategories = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
+				items.forEach(item => {
+					const itemCategory = item.className.split(' ').find(className => className.startsWith('category-'));
+					if (itemCategory) {
+						const category = itemCategory.split('-')[1];
+						item.style.display = selectedCategories.includes(category) ? 'block' : 'none';
+					}
+				});
+			});
+		});
+	</script>
 </body>
+
+ 
 </html>
+

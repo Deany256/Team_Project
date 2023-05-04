@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, session, redirect
 import hashlib
 import sqlite3 
 
+
+
 # Define the database file name
 DATABASE = "ecommerce.db"
 
@@ -69,7 +71,7 @@ def login():
 
                     if password == stored_hashed_password:
                     # if bcrypt.checkpw(password, stored_hashed_password):
-                        session["username"] = name
+                        session["username" ] = name                       
                         return redirect("/")
                     else:
                         return "Invalid username or password"
@@ -102,7 +104,7 @@ def signup():
                     return "Username already exists, please choose a different username."
                 else:
                     cursor.execute("INSERT into Customers (name, username, email, password_hash, shipping_address) VALUES (?, ?, ?, ?, ?)", (name, username, email, hashed_password,shipping_address))
-                if "username" in session:
+                    session["username"] = username
                     return render_template("index.html")
     else:
         if "username" in session:
@@ -140,6 +142,33 @@ def about():
 @app.route("/contact")
 def contact():
     return render_template("contact.html")
+
+@app.route("/viewcart")
+def viewcart():
+    return render_template("viewcart.html")
+
+
+@app.route('/add-to-cart', methods=['POST'])
+def addToCart():
+    product_id = request.json[' product_id']
+    # add item to the cart here
+    return render_template ('/cart.html')
+
+
+
+@app.route('/view-cart')
+def view_cart():
+    # Define a cart as a global variable for simplicity
+    cart = {'item1': 3, 'item2': 1, 'item3': 2}
+    return render_template('view_cart.html', cart=cart)
+
+@app.route('/view-cart', methods=['POST'])
+def add_to_cart():
+    item =['item']
+    quantity = int(request.form['quantity'])
+    # Add item and quantity to user's cart here
+    return render_template('view-cart.html', item=item, quantity=quantity)
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')

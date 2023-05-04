@@ -278,10 +278,10 @@ def Remove_Product():
 # fill_customers_table()
 # fill_orders_table()
 # fill_order_details_table()
-fill_product_images()
+# fill_product_images()
 
 # remove_table()
 # Remove_Customer()
-# Remove_Product()
+Remove_Product()
 
 # create_customers_Dev_table()
