@@ -149,6 +149,31 @@ def add_to_cart():
     itemid = data.get('itemId')
     
     with sqlite3.connect(DATABASE) as conn:
+        Customer = input("Enter Id of the customer: ")
+        itemid = itemid
+        Quantity = input("Enter Quantity of the items you want: ")
+        cursor = conn.cursor()
+        # Check if the row with the customer_id and product_id exists in the table
+        cursor.execute("SELECT COUNT(*) FROM cart WHERE customer_id = ? AND product_id = ?", (Customer, itemid,))
+        result = cursor.fetchone()
+        if result[0] > 0:
+            print("Present :)")
+            # Lower value in the stock column
+            cursor.execute("UPDATE products SET stock = stock - ? WHERE product_id = ?", (Quantity, itemid,))
+            # update item count in cart table
+            cursor.execute("UPDATE cart SET quantity = quantity + ? WHERE customer_id = ? AND product_id = ?", (Quantity, Customer, itemid,))
+        else:
+            # Lower value in the stock column
+            cursor.execute("UPDATE products SET stock = stock - ? WHERE product_id = ?", (Quantity, itemid,))
+            # Insert Item to cart
+            cursor.execute("INSERT INTO cart (customer_id,product_id,quantity) VALUES (?,?,?)", (Customer, itemid, Quantity,))
+            print("not present :(")
+            
+        conn.commit()
+    
+    
+    
+    with sqlite3.connect(DATABASE) as conn:
         cursor = conn.cursor()
         cursor.execute("SELECT stock FROM Products WHERE product_id = ?", (itemid,))
         result = cursor.fetchone()

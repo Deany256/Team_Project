@@ -62,31 +62,30 @@
 		<h1>Items</h1>
 		<table>
 			
-			<tbody>
-				{% for item in items %}
-					<tr>
-						<div class="section2">
-							<div class="container">
-								<div class="items">
-									<img src={{item[8]}} alt="ERROR !!">
-									<li class="category-{{item[5]}}">	
-										<li class="category-{{item[5]}}">{{item[1]}} - {{item[6]}} - {{item[7]}}
-											<button  onclick="addToCart('{{ item[0] }}')">Add to Cart</button>
-										</li>
-									</li>
-								</div>
-							</div>
+		<tbody>
+			{% for item in items %}
+			<tr>
+				<div class="section2">
+					<div class="container">
+						<div class="items category-{{item[5]}}">
+							<img src={{item[8]}} alt="ERROR !!">
+							<li>	
+								{{item[1]}} - {{item[6]}} - {{item[7]}}
+								<button  onclick="addToCart('{{ item[0] }}')">Add to Cart</button>
+							</li>
 						</div>
-					</tr>
-				{% endfor %}
-			</tbody>
+					</div>
+				</div>
+			</tr>
+		{% endfor %}
+		</tbody>
 		</table>
 	</body>
 	<script>
 		function addToCart(itemId) {
 		  	fetch('/add_to_cart', {
 				method: 'POST',
-				body: JSON.stringify({itemId: itemID}),
+				body: JSON.stringify({itemId: itemId}),
 				headers: {
 					'Content-Type': 'application/json'
 				},
@@ -94,20 +93,24 @@
 		}
 	
 		const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-		const items = document.querySelectorAll('.items li');
+		const items = document.querySelectorAll('.items');
 	
 		checkboxes.forEach(checkbox => {
-			checkbox.addEventListener('change', () => {
-				const selectedCategories = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
-				items.forEach(item => {
-					const itemCategory = item.className.split(' ').find(className => className.startsWith('category-'));
-					if (itemCategory) {
-						const category = itemCategory.split('-')[1];
-						item.style.display = selectedCategories.includes(category) ? 'block' : 'none';
-					}
-				});
-			});
-		});
+    checkbox.addEventListener('change', () => {
+        const selectedCategories = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
+        items.forEach(item => {
+            const itemCategory = item.className.split(' ').find(className => className.startsWith('category-'));
+            if (itemCategory) {
+                const category = itemCategory.split('-')[1];
+                if (selectedCategories.length === 0 || selectedCategories.includes(category)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            }
+        });
+    });
+});
 	</script>
 </body>
 
