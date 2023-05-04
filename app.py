@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session, redirect ,  url_for
+import pymysql
 import hashlib
 import sqlite3 
 
@@ -30,7 +31,7 @@ def item():
         # updated item route to allow the user to add an item to their basket
         if request.method == "POST":
             if "basket" not in session:
-                session["basket"] = []
+             session["basket"] = []
             session["basket"].append(products)
             return redirect("/basket")
         else:
@@ -139,6 +140,7 @@ def contact():
     return render_template("contact.html")
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
 @app.route("/viewcart")
 def viewcart():
@@ -169,6 +171,16 @@ def add_to_cart():
     quantity = int(request.form['quantity'])
     # Add item and quantity to user's cart here
     return render_template('view-cart.html', item=item, quantity=quantity)
+
+
+>>>>>>> Stashed changes
+=======
+@app.route("/product")
+def product():
+    return render_template("product.html")
+
+
+ 
 
 
 >>>>>>> Stashed changes
