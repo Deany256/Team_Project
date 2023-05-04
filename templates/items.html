@@ -71,7 +71,7 @@
 									<img src={{item[8]}} alt="ERROR !!">
 									<li class="category-{{item[5]}}">	
 										<li class="category-{{item[5]}}">{{item[1]}} - {{item[6]}} - {{item[7]}}
-											<button  onclick="addToCart(itemId)">Add to Cart</button>
+											<button  onclick="addToCart('{{ item[0] }}')">Add to Cart</button>
 										</li>
 									</li>
 								</div>
@@ -84,15 +84,13 @@
 	</body>
 	<script>
 		function addToCart(itemId) {
-		  fetch('/view-cart', {
-			method: 'POST',
-			headers: {
-			  'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-			  'itemId': itemId
-			})
-		  });
+		  	fetch('/add_to_cart', {
+				method: 'POST',
+				body: JSON.stringify({itemId: itemID}),
+				headers: {
+					'Content-Type': 'application/json'
+				},
+		  	});
 		}
 	
 		const checkboxes = document.querySelectorAll('input[type="checkbox"]');
