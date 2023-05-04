@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session, redirect, jsonify
 import hashlib
 import sqlite3 
 
@@ -71,7 +71,7 @@ def login():
 
                     if password == stored_hashed_password:
                     # if bcrypt.checkpw(password, stored_hashed_password):
-                        session["username" ] = name                       
+                        session["username"] = name
                         return redirect("/")
                     else:
                         return "Invalid username or password"
@@ -108,7 +108,7 @@ def signup():
                     return render_template("index.html")
     else:
         if "username" in session:
-            return redirect("/home")
+            return redirect("/index")
         else:
             return render_template("login_and_signup.html")
 
@@ -143,31 +143,52 @@ def about():
 def contact():
     return render_template("contact.html")
 
-@app.route("/viewcart")
-def viewcart():
-    return render_template("viewcart.html")
-
-
-@app.route('/add-to-cart', methods=['POST'])
-def addToCart():
-    product_id = request.json[' product_id']
-    # add item to the cart here
-    return render_template ('/cart.html')
-
-
-
-@app.route('/view-cart')
-def view_cart():
-    # Define a cart as a global variable for simplicity
-    cart = {'item1': 3, 'item2': 1, 'item3': 2}
-    return render_template('view_cart.html', cart=cart)
-
-@app.route('/view-cart', methods=['POST'])
+@app.route("/add_to_cart")
 def add_to_cart():
-    item =['item']
-    quantity = int(request.form['quantity'])
-    # Add item and quantity to user's cart here
-    return render_template('view-cart.html', item=item, quantity=quantity)
+    data = request.get_json()
+    itemid = data.get('itemId')
+    
+    with sqlite3.connect(DATABASE) as conn:
+        Customer = input("Enter Id of the customer: ")
+        itemid = itemid
+        Quantity = input("Enter Quantity of the items you want: ")
+        cursor = conn.cursor()
+        # Check if the row with the customer_id and product_id exists in the table
+        cursor.execute("SELECT COUNT(*) FROM cart WHERE customer_id = ? AND product_id = ?", (Customer, itemid,))
+        result = cursor.fetchone()
+        if result[0] > 0:
+            print("Present :)")
+            # Lower value in the stock column
+            cursor.execute("UPDATE products SET stock = stock - ? WHERE product_id = ?", (Quantity, itemid,))
+            # update item count in cart table
+            cursor.execute("UPDATE cart SET quantity = quantity + ? WHERE customer_id = ? AND product_id = ?", (Quantity, Customer, itemid,))
+        else:
+            # Lower value in the stock column
+            cursor.execute("UPDATE products SET stock = stock - ? WHERE product_id = ?", (Quantity, itemid,))
+            # Insert Item to cart
+            cursor.execute("INSERT INTO cart (customer_id,product_id,quantity) VALUES (?,?,?)", (Customer, itemid, Quantity,))
+            print("not present :(")
+            
+        conn.commit()
+    
+    
+    
+    with sqlite3.connect(DATABASE) as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT stock FROM Products WHERE product_id = ?", (itemid,))
+        result = cursor.fetchone()
+        quantity = 1
+        if result == None:
+            return "Error"
+        stock = result[0]
+        
+        if stock>0:
+            cursor.execute("UPDATE Products SET stock = stock - 1 WHERE product_id = ?", (itemid,))
+            cursor.execute("INSERT INTO Cart (product_id,quantity) VALUES (?,?)", (itemid,quantity))
+            conn.commit()
+            return "Item Added to cart"
+        else:
+            return "Item Out of stock"
 
 
 if __name__ == '__main__':
