@@ -112,6 +112,8 @@ function updateTotal()
   const cartItems=document.querySelectorAll('.cart-box');
   const totalValue=document.querySelector('.total-price');
 
+
+
   let total=0;
 
   cartItems.forEach(product=>{

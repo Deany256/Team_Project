@@ -129,9 +129,6 @@ def logout():
 def hide():
     return render_template("login_and_signup.html")
 
-@app.route("/banner")
-def banner():
-    return render_template("banner.html")
 
 @app.route("/about")
 def about():
@@ -141,6 +138,40 @@ def about():
 def contact():
     return render_template("contact.html")
 
+<<<<<<< Updated upstream
+=======
+@app.route("/viewcart")
+def viewcart():
+    items= []
+    return render_template("viewcart.html",items=items)
+
+@app.route("/cart")
+def cart():
+    return render_template("cart.html")
+
+@app.route('/add-to-cart', methods=['POST'])
+def addToCart():
+    product_id = request.json[' product_id']
+    # add item to the cart here
+    return render_template ('/cart.html')
+
+
+
+@app.route('/view-cart')
+def view_cart():
+    # Define a cart as a global variable for simplicity
+    cart = {'item1': 3, 'item2': 1, 'item3': 2}
+    return render_template('view_cart.html', cart=cart)
+
+@app.route('/view-cart', methods=['POST'])
+def add_to_cart():
+    item =['item']
+    quantity = int(request.form['quantity'])
+    # Add item and quantity to user's cart here
+    return render_template('view-cart.html', item=item, quantity=quantity)
+
+
+>>>>>>> Stashed changes
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
 

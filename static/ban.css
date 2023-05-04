@@ -819,6 +819,23 @@ header .material-symbols-outlined {
   'opsz' 48
 }
 
+.items img{
+  width: 200px;
+  height: 140px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.white{
+  background-color: white;
+}
+
+
+
+
 
 
 
