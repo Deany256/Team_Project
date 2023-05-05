@@ -27,71 +27,7 @@
 		  <div class="search">
 			  <input type="text" placeholder="Search" id="input">
 			</div>
-<<<<<<< Updated upstream
-		  <div class="heading">
-			<ul>
-				<li><a href="/" class="under">HOME</a></li>
-				<li><a href="/login_or_signup" class="under">SIGN IN/SIGN UP</a></li>
-				<li><a href="/item" class="under">OUR PRODUCTS</a></li>
-				<li><a href="/contact" class="under">CONTACT US</a></li>
-				<li><a href="/about" class="under">ABOUT US</a></li>
-				<li><a href="/logout"  class="material-symbols-outlined">LOGOUT</a></li>
-				<div class="box1">
-				  <div class="cart-count1">0</div>
-				  <ion-icon name="cart"  id="cart-icon1" ></ion-icon>
-				</div>
-			</ul>
-		  </div>
-		  <div class="heading1">
-			<ion-icon name="menu" class="ham"></ion-icon>
-		  </div>
-		</header>
-	  
-	<h1>Items</h1>
-	<table>
-		<thead>
-			<tr>
-				<th > product_id</th>  
-				<th > product_name </th>
-				<th> short_description</th>
-                <th> long_description </th>
-                <th> brand</th>
-                <th> category</th>
-                <th> stock</th>
-                <th> price</th>
-                <th> image_url</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for item in items %}
-			
-			<tr>	
-				<div class="section2">
-					<div class="container">
-					  <div class="items">
-						<li>
-						<p>{{item[1]}}</p> 
-						<p>{{item[2]}}</p> 
-						<p>{{item[3]}}</p> 
-						<p>{{item[4]}}</p> 
-						<p>{{item[5]}}</p> 
-						<p>{{item[6]}}</p> 
-						<p>{{item[7]}}</p> 
-						<p>{{item[8]}}</p> 
-					</li>
-			</tr>
-			{% endfor %}
-		</div>
-	</div>
-	</div>
-	</div>
-		</tbody>
-	</table>
-
-
-</body>
-=======
-		  	<div class="heading">
+			<div class="heading">
 				<ul>
 					<li><a href="/" class="under">HOME</a></li>
 					<li><a href="/login_or_signup" class="under">SIGN IN/SIGN UP</a></li>
@@ -174,8 +110,12 @@
 					const itemCategory = item.className.split(' ').find(className => className.startsWith('category-'));
 					if (itemCategory) {
 						const category = itemCategory.split('-')[1];
-						item.style.display = selectedCategories.includes(category) ? 'block' : 'none';
-					}
+						if (selectedCategories.length === 0 || selectedCategories.includes(category)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+			}
 				});
 
 			
@@ -193,5 +133,5 @@
 </body>
 
 
->>>>>>> Stashed changes
+
 </html>

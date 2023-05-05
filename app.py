@@ -1,5 +1,4 @@
-from flask import Flask, render_template, request, session, redirect ,  url_for
-import pymysql
+from flask import Flask, render_template, request, session, redirect 
 import hashlib
 import sqlite3 
 
@@ -139,9 +138,8 @@ def about():
 def contact():
     return render_template("contact.html")
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
+
+
 @app.route("/viewcart")
 def viewcart():
     items= []
@@ -173,8 +171,7 @@ def add_to_cart():
     return render_template('view-cart.html', item=item, quantity=quantity)
 
 
->>>>>>> Stashed changes
-=======
+
 @app.route("/product")
 def product():
     return render_template("product.html")
@@ -183,7 +180,7 @@ def product():
  
 
 
->>>>>>> Stashed changes
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
 
