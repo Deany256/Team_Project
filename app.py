@@ -145,14 +145,23 @@ def contact():
 
 @app.route("/add_to_cart")
 def add_to_cart():
-    data = request.get_json()
-    itemid = data.get('itemId')
+    # data = request.get_json()
+    # itemid = data.get('itemId')
+    
+    username = session['username']
     
     with sqlite3.connect(DATABASE) as conn:
-        Customer = input("Enter Id of the customer: ")
-        itemid = itemid
-        Quantity = input("Enter Quantity of the items you want: ")
         cursor = conn.cursor()
+        cursor.execute("SELECT customer_id FROM Customers WHERE username = ?", (username,))
+        customerID = cursor.fetchone()
+        
+        Customer = customerID
+        itemid = itemid
+        if Quantity == 0:
+            Quantity = 1
+        else:
+            Quantity= Quantity
+        
         # Check if the row with the customer_id and product_id exists in the table
         cursor.execute("SELECT COUNT(*) FROM cart WHERE customer_id = ? AND product_id = ?", (Customer, itemid,))
         result = cursor.fetchone()
